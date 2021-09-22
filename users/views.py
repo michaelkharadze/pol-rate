@@ -39,11 +39,11 @@ def password_reset_request(request):
                     email_template_name = 'users/password_message.txt'
                     parameters = {
                         'email': user.email,
-                        'domain': '127.0.0.1:8000',
-                        'site_name': 'TestSite',
+                        'domain': 'pol-rate.herokuapp.com',
+                        'site_name': 'პოლ-რეითი',
                         'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                         'token': default_token_generator.make_token(user),
-                        'protocol': 'http',
+                        'protocol': 'https',
                     }
                     email = render_to_string(email_template_name, parameters)
                     try:
