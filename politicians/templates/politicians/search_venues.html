@@ -1,0 +1,73 @@
+{% extends "politicians/base.html" %}
+{% block content %}
+{% if searched %}
+<form style="width: 20%; margin: 0.5rem;" class="search-bar d-flex" method=POST action="{% url 'search-venues' %}">
+  {% csrf_token %}
+  <input class='form-control me-2' style="width: 15rem; max-width: 15rem;" type="search" placeholder="Search for a college" aria-label="Search" name="searched">
+  <button style="margin-left: 0.5rem;" class='btn btn-outline-success' type="submit">ძიება</button>
+</form>
+<h3 style="width: 100%">{{ searched }}</h1>
+<table>
+    <tr>
+      <th>სახელი</th>
+      <th>რეიტინგი</th>
+      <th>აღწერა</th>
+    </tr>
+    {% for venue in venuesList %}
+    <tr>
+            <td><a href="{% url 'politician-detail' venue.id %}">{{ venue.name }}</a></td>
+            <td>{{ venue.get_avg_rating|floatformat }} / 5 <span class="fa fa-star checked"></span></td>
+            <td>{{ venue.description|safe|truncatechars:"70"|linebreaks }}</td>
+    </tr>
+    {% endfor %}
+</table>
+  {% if venuesList.has_previous %}
+    <a style="margin-top: 0.5rem; margin-left: 0.2rem" class="btn btn-outline-info mb-4" href="?page={{ venuesList.previous_page_number }}">უკან</a>
+  {% endif %}
+  {% if venuesList.paginator.page_range > 1 %}
+  {% for num in venuesList.paginator.page_range %}
+    {% if venuesList.number == num %}
+      <a style="margin-top: 0.5rem; margin-left: 0.2rem" class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+    {% elif num > venuesList.number|add:'-3' and num < venuesList.number|add:'3' %}  
+      <a style="margin-top: 0.5rem; margin-left: 0.2rem" class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+    {% endif %}
+  {% endfor %}
+  {% endif %}
+  {% if venuesList.has_next %}
+    <a style="margin-top: 0.5rem; margin-left: 0.2rem" class="btn btn-outline-info mb-4" href="?page={{ venuesList.next_page_number }}">შემდეგი</a>
+  {% endif %}
+{% else %}
+<form style="width: 20%; margin: 0.5rem;" class="search-bar d-flex" method=POST action="{% url 'search-venues' %}">
+  {% csrf_token %}
+  <input class='form-control me-2' style="width: 15rem; max-width: 15rem;" type="search" placeholder="მოძებნეთ პოლიტიკოსი" aria-label="Search" name="searched">
+  <button style="margin-left: 0.5rem;" class='btn btn-outline-success' type="submit">ძიება</button>
+</form>
+<table>
+    <tr>
+      <th>სახელი</th>
+      <th>რეიტინგი</th>
+      <th>აღწერა</th>
+    </tr>
+    {% for post in venuesList %}
+    <tr>
+            <td><a href="{% url 'politician-detail' post.id %}">{{ post.name }}</a></td>
+            <td>{{ post.get_avg_rating|floatformat }} / 5 <span class="fa fa-star checked"></span></td>
+            <td>{{ post.description|safe|truncatechars:"70"|linebreaks }}</td>
+    </tr>
+    {% endfor %}
+</table>
+  {% if venuesList.has_previous %}
+    <a style="margin-top: 0.5rem; margin-left: 0.2rem" class="btn btn-outline-info mb-4" href="?page={{ venuesList.previous_page_number }}">უკან</a>
+  {% endif %}
+  {% for num in venuesList.paginator.page_range %}
+    {% if venuesList.number == num %}
+      <a style="margin-top: 0.5rem; margin-left: 0.2rem" class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+    {% elif num > venuesList.number|add:'-3' and num < venuesList.number|add:'3' %}  
+      <a style="margin-top: 0.5rem; margin-left: 0.2rem" class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+    {% endif %}
+  {% endfor %}
+  {% if venuesList.has_next %}
+    <a style="margin-top: 0.5rem; margin-left: 0.2rem" class="btn btn-outline-info mb-4" href="?page={{ venuesList.next_page_number }}">შემდეგი</a>
+  {% endif %}
+{% endif %}
+{% endblock content %}

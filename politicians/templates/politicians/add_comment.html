@@ -1,0 +1,21 @@
+{% extends "politicians/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div style="width: 70%;" class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">შეფასების დამატება</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">გაგზავნა</button>
+            </div>
+        </form>
+    </div>
+    <style>
+        #div_id_captcha .asteriskField {
+            display: none;
+        }
+    </style>
+{% endblock content %}

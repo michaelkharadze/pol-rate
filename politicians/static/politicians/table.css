@@ -1,0 +1,20 @@
+th, td {
+    text-align: center;
+    border-style: solid;
+    border-color: lightgrey;
+    border-width: 1px;
+    padding: 8px;
+    word-wrap: break-word;
+}
+th {
+    background-color: #e8e8e8;
+}
+td {
+    word-wrap: break-word;
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    background: #ffffff;
+}
