@@ -25,7 +25,7 @@ class PostListView(ListView):
 
 def post_detail_view(request, id):
     pk = id
-    reviews = Review.objects.filter(postz_id=id).order_by("-id")
+    reviews = Review.objects.filter(person_id=id).order_by("-id")
     general_rating = reviews.aggregate(Avg("general_rate"))["general_rate__avg"]
     if(general_rating):
       general_rating = round(general_rating, 1)
@@ -80,7 +80,7 @@ class AddCommentView(LoginRequiredMixin, CreateView):
     template_name = 'politicians/add_comment.html'
     def form_valid(self, form):
         form.instance.user = self.request.user
-        form.instance.postz_id = self.kwargs['pk']
+        form.instance.person_id = self.kwargs['pk']
         return super().form_valid(form)
 
     def get_success_url(self):
