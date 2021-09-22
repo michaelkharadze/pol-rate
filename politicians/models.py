@@ -19,7 +19,7 @@ class Post(models.Model):
 class Review(models.Model):
     approved = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    person = models.ForeignKey(Post, related_name="comments", on_delete=models.CASCADE)
+    postz = models.ForeignKey(Post, related_name="comments", on_delete=models.CASCADE)
     comment = models.TextField(max_length=300, blank=True)
     honesty_rate = models.IntegerField()
     focus_rate = models.IntegerField()
