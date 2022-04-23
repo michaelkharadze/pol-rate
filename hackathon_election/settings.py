@@ -137,6 +137,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'politicalratingsite@gmail.com'
-EMAIL_HOST_PASSWORD = 'Miqaeli123!'
+EMAIL_HOST_PASSWORD = '' # hidden from the github files
 
 django_heroku.settings(locals())
